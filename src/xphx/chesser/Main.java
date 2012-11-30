@@ -22,6 +22,10 @@ public class Main {
 		 * 56 57 58 59 60 61 62 63
 		 */
 		System.out.println("Board built");
+		System.out.println("Please enter full path to lessons.txt (sorry I can't auto detect this)");
+		Scanner scan = new Scanner(System.in);
+		Think.lessonslocation = scan.next();
+		scan.close();
 		//PromptForMove --> TranslateIn --> AlterBoard --> Think --> AlterBoard --> Output
 		System.out.println("As of this version the player is always white.");
 		System.out.println("The possiblity of being black will be added in a later version.");

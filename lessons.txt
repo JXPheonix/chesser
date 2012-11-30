@@ -1,0 +1,2 @@
+# This is a file it reads/writes from. It's everything it's learned so far about chess.
+# DO NOT MODIFY. If you want to "teach" the bot, fork the code, download the source, play a game, upload this back.

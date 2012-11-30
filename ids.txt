@@ -1,0 +1,6 @@
+# This associates IDs with github usernames or emails.
+# So you can give kudos to people who have beaten my bot.
+00000000:Chesser
+00000001:JXPheonix
+00000002:cat.syrup@gmail.com
+00000003:zoryzoey@gmail.com

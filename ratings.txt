@@ -1,0 +1,6 @@
+# This is the ratings folder, sorted by ID.
+# For a list of ID's and names, see ids.txt
+0000000:1500
+0000001:1500
+0000002:1500
+0000003:1500

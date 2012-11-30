@@ -1,0 +1,5 @@
+# To get listed in chesser's system (and so it can learn more about you, hehe) just enter the number below as your ID.
+# Please note that chesser doesn't connect to a worldwide database and it's possible this number is already taken
+# PLEASE, PLEASE, PLEASE, don't use the original source! FORK ME, git clone that, play a few games, and then issue a pull request with the subject "New player: #######"
+# Thanks :)
+0000004

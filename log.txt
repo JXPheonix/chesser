@@ -1,0 +1,3 @@
+# This is the games file. It's a log of every game chesser's ever played.
+# It probably looks like gibberish to you, but to chesser it's his mind.
+# Don't modify this at all - just play a game with chesser to teach it.

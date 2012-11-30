@@ -580,48 +580,48 @@ public class Main {
 			//A normal move.
 			//First check what piece is being moved (the letter at the beginning)
 			int moveto;
-			int movefrom;
+			int movefrom = 0;
 			int a = 0, b = 0, c = 0, d = 0, e;
 			String movetoalg;
-			if(move.startsWith("B")){
-				//Moving the bishop
-				//Translate the last two squares into a number
-				movetoalg = move.substring(1);
-				if(movetoalg.startsWith("a")){
-					a = 0;
-				}else if(movetoalg.startsWith("b")){
-					a = 1;
-				}else if(movetoalg.startsWith("c")){
-					a = 2;
-				}else if(movetoalg.startsWith("d")){
-					a = 3;
-				}else if(movetoalg.startsWith("e")){
-					a = 4;
-				}else if(movetoalg.startsWith("f")){
-					a = 5;
-				}else if(movetoalg.startsWith("g")){
-					a = 6;
-				}else if(movetoalg.startsWith("h")){
-					a = 7;
-				}
-				if(movetoalg.endsWith("1")){
-					b = 0;
-				}else if(movetoalg.endsWith("2")){
-					b = 1;
-				}else if(movetoalg.endsWith("3")){
-					b = 2;
-				}else if(movetoalg.endsWith("4")){
-					b = 3;
-				}else if(movetoalg.endsWith("5")){
-					b = 4;
-				}else if(movetoalg.endsWith("6")){
-					b = 5;
-				}else if(movetoalg.endsWith("7")){
-					b = 6;
-				}else if(movetoalg.endsWith("8")){
-					b = 7;
-				}
-				moveto = (8*b)+a;
+			//Moving the bishop
+			//Translate the last two squares into a number
+			movetoalg = move.substring(1);
+			if(movetoalg.startsWith("a")){
+				a = 0;
+			}else if(movetoalg.startsWith("b")){
+				a = 1;
+			}else if(movetoalg.startsWith("c")){
+				a = 2;
+			}else if(movetoalg.startsWith("d")){
+				a = 3;
+			}else if(movetoalg.startsWith("e")){
+				a = 4;
+			}else if(movetoalg.startsWith("f")){
+				a = 5;
+			}else if(movetoalg.startsWith("g")){
+				a = 6;
+			}else if(movetoalg.startsWith("h")){
+				a = 7;
+			}
+			if(movetoalg.endsWith("1")){
+				b = 0;
+			}else if(movetoalg.endsWith("2")){
+				b = 1;
+			}else if(movetoalg.endsWith("3")){
+				b = 2;
+			}else if(movetoalg.endsWith("4")){
+				b = 3;
+			}else if(movetoalg.endsWith("5")){
+				b = 4;
+			}else if(movetoalg.endsWith("6")){
+				b = 5;
+			}else if(movetoalg.endsWith("7")){
+				b = 6;
+			}else if(movetoalg.endsWith("8")){
+				b = 7;
+			}
+			moveto = (8*b)+a;
+			if(move.startsWith("B")){		
 				//now that we have that, we need to locate where bishops could move here
 				//Bishops can move in increments of 9 or 7. We need to locate
 				//bishops on squares moveto+(9*-5 to 5) and moveto+(7*-5 to 5).
@@ -676,6 +676,44 @@ public class Main {
 				}else{
 					//Great.
 				}
+			}else if(move.startsWith("N")){
+				//Knight moves, which are somewhat complicated.
+				//Say the place you move to is x.
+				//The places you could have moved from are:
+				//x +- 17, 15, 10, 6.
+				//8 different locations. You have to test them individually.
+				if(board[moveto + 17] == "white-knight"){
+					movefrom = moveto + 17;
+				}else if(board[moveto + 15] == "white-knight"){
+					movefrom = moveto + 15;
+				}else if(board[moveto + 10] == "white-knight"){
+					movefrom = moveto + 10;
+				}else if(board[moveto + 6] == "white-knight"){
+					movefrom = moveto + 6;
+				}else if(board[moveto - 6] == "white-knight"){
+					movefrom = moveto - 6;
+				}else if(board[moveto - 10] == "white-knight"){
+					movefrom = moveto - 10;
+				}else if(board[moveto - 15] == "white-knight"){
+					movefrom = moveto - 15;
+				}else if(board[moveto - 17] == "white-knight"){
+					movefrom = moveto - 15;
+				}else{
+					IllegalMove("No knights to move there");
+				}
+				tsmove = Integer.toString(movefrom);
+				tsmove += ":";
+				tsmove += Integer.toString(moveto);
+				//That wasn't too hard.
+			}else if(move.startsWith("R")){
+				//Rooks are probably one of the harder pieces.
+				//They move in increments of 1 or 8, like the bishops 7 or 9.
+			}else if(move.startsWith("Q")){
+				//
+			}else if(move.startsWith("K")){
+				//
+			}else{
+				IllegalMove("Illegal Algebraic Notation");
 			}
 		}
 		System.out.println(move);

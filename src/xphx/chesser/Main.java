@@ -581,7 +581,7 @@ public class Main {
 			//First check what piece is being moved (the letter at the beginning)
 			int moveto;
 			int movefrom;
-			int a = 0, b = 0, c, d, e;
+			int a = 0, b = 0, c = 0, d = 0, e;
 			String movetoalg;
 			if(move.startsWith("B")){
 				//Moving the bishop
@@ -623,7 +623,59 @@ public class Main {
 				}
 				moveto = (8*b)+a;
 				//now that we have that, we need to locate where bishops could move here
-				
+				//Bishops can move in increments of 9 or 7. We need to locate
+				//bishops on squares moveto+(9*-5 to 5) and moveto+(7*-5 to 5).
+				//Not that hard.
+				int movepossible;
+				for(int i = -10; i < 11; i++){
+					movepossible = moveto+(9*i);
+					if(movepossible >= 0){
+						if(movepossible < 64){
+							if(board[movepossible] == "white-bishop"){
+								c++;
+								d = movepossible;
+							}
+						}
+					}
+					movepossible = moveto+(7*i);
+					if(movepossible >= 0){
+						if(movepossible < 64){
+							if(board[movepossible] == "white-bishop"){
+								c++;
+								d = movepossible;
+							}
+						}
+					}
+				}
+				//Now, we hope that there is only one possible bishop.
+				if(c == 0){
+					IllegalMove("No bishops to move there");
+				}else if(c == 1){
+					//Oh thank god
+					//Make sure no pieces are in the way
+					e = moveto - d;
+					if((e % 9) == 0){
+						if(moveto > d){
+							for(int i = moveto; i > d; i = i - 9){
+								if(board[i] != "empty"){
+									IllegalMove("The path between the bishop and the space is not clear");
+								}
+							}
+						}else{
+							for(int i = d; i > moveto; i = i - 9){
+								if(board[i] != "empty"){
+									IllegalMove("The path between the bishop and the location is not clear");
+								}
+							}
+						}
+					}
+					//The bishop's at d, so...
+					tsmove = Integer.toString(d);
+					tsmove += ":";
+					tsmove += Integer.toString(moveto);
+				}else{
+					//Great.
+				}
 			}
 		}
 		System.out.println(move);

@@ -12,16 +12,14 @@ public class Main {
 		ArrayMake arrays = new ArrayMake();
 		board = arrays.board;
 		/* For reference:
-		 * 01 02 03 04 05 06 07 08
-		 * 09 10 11 12 13 14 15 16
-		 * 17 18 19 20 21 22 23 24
-		 * 25 26 27 28 29 30 31 32
-		 * 33 34 35 36 37 38 39 40
-		 * 41 42 43 44 45 46 47 48
-		 * 49 50 51 52 53 54 55 56
-		 * 57 58 59 60 61 62 63 64
-		 * 
-		 * Since I'm lazy, take 1 away from each number.
+		 * 00 01 02 03 04 05 06 07
+		 * 08 09 10 11 12 13 14 15
+		 * 16 17 18 19 20 21 22 23
+		 * 24 25 26 27 28 29 30 31
+		 * 32 33 34 35 36 37 38 39
+		 * 40 41 42 43 44 45 46 47
+		 * 48 49 50 51 52 53 54 55
+		 * 56 57 58 59 60 61 62 63
 		 */
 		System.out.println("Board built");
 		//PromptForMove --> TranslateIn --> AlterBoard --> Think --> AlterBoard --> Output
@@ -60,6 +58,7 @@ public class Main {
 
 	private static String Translate(String move) {
 		String tsmove = "glitch";
+		boolean illegal = false;
 		//Move translated looks something like this:
 		//original location:new location
 		//25:17 would be whatever is on 25 moving to 17
@@ -127,6 +126,10 @@ public class Main {
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
 					}
+					//Check we aren't moving onto another piece
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
+					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
 					tsmove += Integer.toString(i - 8);
@@ -187,6 +190,10 @@ public class Main {
 					}
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
+						//since this seems to be broken i'm not setting as illegal
+					}
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
 					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
@@ -196,16 +203,10 @@ public class Main {
 					//Multiple pawns damnit.
 				}
 			}else if(move.startsWith("c")){
-				//The thing that makes this confusing
-				//Is that sometimes (when a pawn captures a piece)
-				//Then there are two pawns in a lane
-				//So let's make sure that there aren't two pawns in this lane
 				int i = 0;
 				int j = 0;
 				int k = 0;
 				boolean pawnfound = false;
-				//Since Translate() only translate's whites moves,
-				//we're looking for "white-pawn".
 				do{
 					if(board[i] == "white-pawn"){
 						j++;
@@ -256,6 +257,9 @@ public class Main {
 					}
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
+					}
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
 					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
@@ -326,9 +330,13 @@ public class Main {
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
 					}
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
+					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
 					tsmove += Integer.toString(i - 8);
+					
 					//ok we're done here move out
 				}else{
 					//Multiple pawns damnit.
@@ -382,6 +390,9 @@ public class Main {
 					}
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
+					}
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
 					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
@@ -439,6 +450,9 @@ public class Main {
 					}
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
+					}
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
 					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
@@ -552,12 +566,64 @@ public class Main {
 					if(move.endsWith(Integer.toString(k - 1)) != true){
 						IllegalMove("You're moving the pawn way too far, dude.");
 					}
+					if(board[i - 8] != "empty"){
+						IllegalMove("You can't move the pawn onto another piece!");
+					}
 					tsmove = Integer.toString(i);
 					tsmove += ":";
 					tsmove += Integer.toString(i - 8);
 				}else{
 					//Multiple pawns damnit.
 				}
+			}
+		}else if(move.length() == 3){
+			//A normal move.
+			//First check what piece is being moved (the letter at the beginning)
+			int moveto;
+			int movefrom;
+			int a = 0, b = 0, c, d, e;
+			String movetoalg;
+			if(move.startsWith("B")){
+				//Moving the bishop
+				//Translate the last two squares into a number
+				movetoalg = move.substring(1);
+				if(movetoalg.startsWith("a")){
+					a = 0;
+				}else if(movetoalg.startsWith("b")){
+					a = 1;
+				}else if(movetoalg.startsWith("c")){
+					a = 2;
+				}else if(movetoalg.startsWith("d")){
+					a = 3;
+				}else if(movetoalg.startsWith("e")){
+					a = 4;
+				}else if(movetoalg.startsWith("f")){
+					a = 5;
+				}else if(movetoalg.startsWith("g")){
+					a = 6;
+				}else if(movetoalg.startsWith("h")){
+					a = 7;
+				}
+				if(movetoalg.endsWith("1")){
+					b = 0;
+				}else if(movetoalg.endsWith("2")){
+					b = 1;
+				}else if(movetoalg.endsWith("3")){
+					b = 2;
+				}else if(movetoalg.endsWith("4")){
+					b = 3;
+				}else if(movetoalg.endsWith("5")){
+					b = 4;
+				}else if(movetoalg.endsWith("6")){
+					b = 5;
+				}else if(movetoalg.endsWith("7")){
+					b = 6;
+				}else if(movetoalg.endsWith("8")){
+					b = 7;
+				}
+				moveto = (8*b)+a;
+				//now that we have that, we need to locate where bishops could move here
+				
 			}
 		}
 		System.out.println(move);

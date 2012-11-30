@@ -1,0 +1,2 @@
+# This is the file that the program writes to whenever it plays a game. It never reads from this file. I can use it to trace errors and stuff.
+# It's basically a human-readable version of lessons.txt. You shouldn't modify either of these files, though.

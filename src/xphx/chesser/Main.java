@@ -24,6 +24,10 @@ public class Main {
 		 * Since I'm lazy, take 1 away from each number.
 		 */
 		System.out.println("Board built");
+		System.out.println("Please enter full path to lessons.txt (sorry I can't auto detect this)");
+		Scanner scan = new Scanner(System.in);
+		Think.lessonslocation = scan.next();
+		scan.close();
 		//PromptForMove --> TranslateIn --> AlterBoard --> Think --> AlterBoard --> Output
 		System.out.println("As of this version the player is always white.");
 		System.out.println("The possiblity of being black will be added in a later version.");

@@ -109,7 +109,7 @@ public class ArrayMake {
 				break;
 			}
 			i++;
-		}while(i <= 64);
+		}while(i <= 63);
 	}
 
 }

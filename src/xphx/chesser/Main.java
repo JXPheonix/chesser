@@ -8,14 +8,15 @@ public class Main {
 	//This time, I'm taking more cues from Medicore Chess (http://mediocrechess.blogspot.com/)
 	//Making more unique classes, 0x88, etc.
 	
+	static Board board = new Board();
+	
 	public static void main(String[] args){
 		System.out.println("Chesser by XphnX");
-		Board board = new Board();
 		Scanner scan = new Scanner(System.in);
-		System.out.println("I use glicko-2 to calculate ratings.");
-		System.out.println("What's your ID? (It's a 7 digit number. If you don't have one, refer to newPlayer.txt for a new ID.)");
-		int opponent = scan.nextInt();
-		//not doing anything with that yet, for later
+		//System.out.println("I use glicko-2 to calculate ratings.");
+		//System.out.println("What's your ID? (It's a 7 digit number. If you don't have one, refer to newPlayer.txt for a new ID.)");
+		//int opponent = scan.nextInt();
+		//Not doing anything with the above, yet
 		System.out.println("Am I white or black?");
 		String position = scan.next();
 		boolean start = false;
@@ -30,16 +31,24 @@ public class Main {
 		}
 		//Reset board
 		board.reset();
+		board.log("GAMEBREAK");
+		if(start){
+			board.update(new Move(board));
+		}
+		for(board.mate = board.mate; board.mate = false;){
+			PlayerMove();
+			board.log(null);
+			board.update(new Move(board));
+		}
 	}
 
 	private static void createPlayers() {
-		// TODO Auto-generated method stub
-		
+		//Nothing yet; for ratings management
 	}
 
 	private static void PlayerMove() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Make your move!");
+		board.update(new Move(new Scanner(System.in).next(), board));
 	}
 
 }
